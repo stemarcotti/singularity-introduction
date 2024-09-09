@@ -3,18 +3,9 @@ permalink: index.html
 site: sandpaper::sandpaper_site
 ---
 
-> **ATTENTION** This is an experimental test of [The Carpentries Workbench](https://carpentries.github.io/workbench) lesson infrastructure.
-> It was automatically converted from the source lesson via [the lesson transition script](https://github.com/carpentries/lesson-transition/).
-> 
-> If anything seems off, please contact Zhian Kamvar [zkamvar@carpentries.org](mailto:zkamvar@carpentries.org)
-
 This lesson provides an introduction to using the [Singularity container platform](https://github.com/hpcng/singularity). Singularity is particularly suited to running containers on infrastructure where users don't have administrative privileges, for example shared infrastructure such as High Performance Computing (HPC) clusters.
 
 This lesson will introduce Singularity from scratch showing you how to run a simple container and building up to creating your own containers and running parallel scientific workloads on HPC infrastructure.
-
-<!-- this is an html comment -->
-
-{% comment %} This is a comment in Liquid {% endcomment %}
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
@@ -41,7 +32,3 @@ Building containers requires access to a platform with an installation of Singul
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-
-
