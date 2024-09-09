@@ -182,5 +182,3 @@ That concludes this introductory Singularity episode. The next episode looks in 
 - The `singularity` command can be used to pull images from Singularity Hub and run a container from an image file.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
