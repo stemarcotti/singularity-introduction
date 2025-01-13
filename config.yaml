@@ -61,17 +61,17 @@ contact: 'liz.ing-simmons@kcl.ac.uk'
 episodes: 
 - introduction.md
 - meet-docker.md
-- running-containers.md
-- managing-containers.md
-- 01-singularity-gettingstarted.md
-- 02-singularity-cache.md
-- 03-singularity-shell.md
-- 04-singularity-files.md
-- 05-singularity-docker.md
+- docker-running-containers.md
+- docker-managing-containers.md
+- singularity-gettingstarted.md
+- singularity-cache.md
+- singularity-shell.md
+- singularity-files.md
+- singularity-docker.md
 - docker-hub.md
 - creating-container-images.md
 - advanced-containers.md
-- 08-singularity-mpi.md
+- singularity-mpi.md
 - reproduciblity.md
 
 # Information for Learners
