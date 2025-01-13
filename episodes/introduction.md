@@ -137,10 +137,31 @@ flavour of Linux + the filesystem inside.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## What is Docker?
+## What are Docker and Singularity?
 
-[Docker][Docker] is a tool that allows you to build and run containers.
-It's not the only tool that can create containers, but is the one we've chosen for this workshop.
+[Docker][Docker] and [Singularity](https://sylabs.io/singularity/) are tools that allow you to build and run containers.
+They are similar in many ways.
+However, differences in the design of Singularity and Docker mean that Singularity is particularly well-suited to running on distributed, High Performance Computing (HPC) infrastructure.
+System administrators will not, generally, install Docker on shared computing platforms such as lab desktops, research clusters or HPC platforms because the design of Docker presents potential security issues for shared platforms with multiple users.
+Singularity, on the other hand, can be run by end-users entirely within "user space", that is, no special administrative privileges need to be assigned to a user in order for them to run and interact with containers on a platform where Singularity has been installed.
+
+However, Singularity is more complicated to install on Windows and Mac laptops/desktops.
+Therefore, in this workshop, we will introduce both Docker and Singularity.
+We will use Docker to work locally on our own machines, and Singularity to work on the HPC.
+
+### What is the relationship between Singularity, SingularityCE and Apptainer?
+
+Singularity is open source and was initially developed within the research community.
+The company [Sylabs](https://sylabs.io/) was founded in 2018 to provide commercial support for Singularity.
+In [May 2021](https://sylabs.io/2021/05/singularity-community-edition/), Sylabs "forked" the codebase to create a new project called [SingularityCE]((https://sylabs.io/singularity)) (where CE means "Community Edition").
+This in effect marks a common point from which two projects---SingularityCE and Singularity---developed.
+Sylabs continue to develop both the free, open source SingularityCE and a Pro/Enterprise edition of the software.
+In November 2021, the original open source Singularity project [renamed itself to Apptainer](https://apptainer.org/news/community-announcement-20211130/) and [joined the Linux Foundation](https://www.linuxfoundation.org/press/press-release/new-linux-foundation-project-accelerates-collaboration-on-container-systems-between-enterprise-and-high-performance-computing-environments).
+
+At the time of writing, in the context of the material covered in this lesson, Apptainer and Singularity are effectively interchangeable.
+If you are working on a platform that now has Apptainer installed, you might find that the only change you need to make when working through this material is to use the the command `apptainer` instead of `singularity`.
+This course will continue to refer to Singularity until differences between the projects warrant choosing one project or the other for the course material.
+
 
 ## Container Images
 
@@ -206,6 +227,6 @@ a research context include:
 - Virtualization allows multiple environments to run on a single computer.
 - Containerization improves upon the virtualization of whole computers by allowing efficient management of the host computer's memory and storage resources.
 - Containers are built from 'recipes' that define the required set of software components and the instructions necessary to build/install them within a container image.
-- Docker is just one software platform that can create containers and the resources they use.
+- Docker and Singularity/Apptainer are software platforms that can create containers and the resources they use.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
