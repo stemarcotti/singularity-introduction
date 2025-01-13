@@ -18,58 +18,38 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-The episodes in this lesson will introduce you to the [Singularity](https://sylabs.io/singularity/) container platform and demonstrate how to set up and use Singularity.
-
-This material is split into 2 parts:
-
-*Part I: Basic usage, working with images*
-
-1. **Singularity: Getting started**: This introductory episode
-
-Working with Singularity containers:
-
-<ol start="2">
- <li><strong>The singularity cache: </strong> Why, where and how does Singularity cache images locally?</li>
- <li><strong>Running commands within a Singularity container: </strong> How to run commands within a Singularity container.</li>
- <li><strong>Working with files and Singularity containers: </strong> Moving files into a Singularity container; accessing files on the host from within a container.</li>
- <li><strong>Using Docker images with Singularity: </strong>How to run Singularity containers from Docker images.</li>
- </ol>
- *Part II: Creating images, running parallel codes*
- <ol start="6">   <li><strong>Preparing to build Singularity images</strong>: Getting started with the Docker Singularity container.</li>   <li><strong>Building Singularity images</strong>: Explaining how to build and share your own Singularity images.</li>   <li><strong>Running MPI parallel jobs using Singularity containers</strong>: Explaining how to run MPI parallel codes from within Singularity containers.</li>
-</ol>
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Work in progress...
-
-This lesson is new material that is under ongoing development. We will introduce Singularity and demonstrate how to work with it. As the tools and best practices continue to develop, elements of this material are likely to evolve. We welcome any comments or suggestions on how the material can be improved or extended.
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Singularity - Part I
 
 ## What is Singularity?
 
-[Singularity](https://sylabs.io/singularity/) is a container platform that allows software engineers and researchers to easily share their work with others by packaging and deploying their software applications in a portable and reproducible manner. When you download a Singularity container image, you essentially receive a virtual computer disk that contains all of the necessary software, libraries and configuration to run one or more applications or undertake a particular task, e.g. to support a specific research project. This saves you the time and effort of installing and configuring software on your own system or setting up a new computer from scratch, as you can simply run a Singularity container from the image and have a virtual environment that is identical to the one used by the person who created the image. Container platforms like Singularity provide a convenient and consistent way to access and run software and tools. Singularity is increasingly widely used in the research community for supporting research projects as it allows users to isolate their software environments from the host operating system and can simplify tasks such as running multiple experiments simultaneously.
+So far in this lesson we have been using Docker to run containers.
+However, the design of Docker presents potential security issues for shared computing platforms with multiple users, such as lab desktops, research clusters or HPC platforms.
+Therefore, system administrators will generally not install Docker on such shared platforms. 
+Singularity, on the other hand, can be run by end-users entirely within "user space", that is, no special administrative privileges need to be assigned to a user in order for them to run and interact with containers on a platform where Singularity has been installed.
 
-You may be familiar with Docker, another container platform that is now used widely. If you are, you will see that in some ways, Singularity is similar to Docker. However, in others, particularly in the system's architecture, it is fundamentally different. These differences mean that Singularity is particularly well-suited to running on distributed, High Performance Computing (HPC) infrastructure, as well as a Linux laptop or desktop!
 
-*Later in this material, when we come to look at building Singularity images ourselves, we will make use of Docker to provide an environment in which we can run Singularity with administrative privileges. In this context, some basic knowledge of Docker is strongly recommended. If you are covering this module independently, or as part of a course that hasn't covered Docker, you can find an introduction to Docker in the "[Reproducible Computational Environments Using Containers: Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/index.html)" lesson.*
-
-System administrators will not, generally, install Docker on shared computing platforms such as lab desktops, research clusters or HPC platforms because the design of Docker presents potential security issues for shared platforms with multiple users. Singularity, on the other hand, can be run by end-users entirely within "user space", that is, no special administrative privileges need to be assigned to a user in order for them to run and interact with containers on a platform where Singularity has been installed.
+:::::::::::::::::::::::::::::::::::::::::  callout
 
 ## What is the relationship between Singularity, SingularityCE and Apptainer?
 
-Singularity is open source and was initially developed within the research community. The company [Sylabs](https://sylabs.io/) was founded in 2018 to provide commercial support for Singularity.  In [May 2021](https://sylabs.io/2021/05/singularity-community-edition/), Sylabs "forked" the codebase to create a new project called [SingularityCE]((https://sylabs.io/singularity)) (where CE means "Community Edition").  This in effect marks a common point from which two projects---SingularityCE and Singularity---developed. Sylabs continue to develop both the free, open source SingularityCE and a Pro/Enterprise edition of the software. In November 2021, the original open source Singularity project [renamed itself to Apptainer](https://apptainer.org/news/community-announcement-20211130/) and [joined the Linux Foundation](https://www.linuxfoundation.org/press/press-release/new-linux-foundation-project-accelerates-collaboration-on-container-systems-between-enterprise-and-high-performance-computing-environments).
+Singularity is open source and was initially developed within the research community.
+The company [Sylabs](https://sylabs.io/) was founded in 2018 to provide commercial support for Singularity.
+In [May 2021](https://sylabs.io/2021/05/singularity-community-edition/), Sylabs "forked" the codebase to create a new project called [SingularityCE]((https://sylabs.io/singularity)) (where CE means "Community Edition").
+This in effect marks a common point from which two projects---SingularityCE and Singularity---developed.
+Sylabs continue to develop both the free, open source SingularityCE and a Pro/Enterprise edition of the software.
+In November 2021, the original open source Singularity project [renamed itself to Apptainer](https://apptainer.org/news/community-announcement-20211130/) and [joined the Linux Foundation](https://www.linuxfoundation.org/press/press-release/new-linux-foundation-project-accelerates-collaboration-on-container-systems-between-enterprise-and-high-performance-computing-environments).
 
-At the time of writing, in the context of the material covered in this lesson, Apptainer and Singularity are effectively interchangeable. If you are working on a platform that now has Apptainer installed, you might find that the only change you need to make when working through this material is to use the the command `apptainer` instead of `singularity`.  This course will continue to refer to Singularity until differences between the projects warrant choosing one project or the other for the course material.
+At the time of writing, in the context of the material covered in this lesson, Apptainer and Singularity are effectively interchangeable.
+If you are working on a platform that now has Apptainer installed, you might find that the only change you need to make when working through this material is to use the the command `apptainer` instead of `singularity`.
+This course will continue to refer to Singularity until differences between the projects warrant choosing one project or the other for the course material.
+:::::::::::::::::::::::::::::::::::::::::
+
 
 ## Getting started with Singularity
 
-Initially developed within the research community, Singularity is open source and the [repository](https://github.com/hpcng/singularity) is currently available in the "[The Next Generation of High Performance Computing](https://github.com/hpcng)" GitHub organisation. Part I of this Singularity material is intended to be undertaken on a remote platform where Singularity has been pre-installed.
+Initially developed within the research community, Singularity is open source and the [repository](https://github.com/hpcng/singularity) is currently available in the "[The Next Generation of High Performance Computing](https://github.com/hpcng)" GitHub organisation.
+This Singularity material is intended to be used on a remote platform where Singularity has been pre-installed.
 
-*If you're attending a taught version of this course, you will be provided with access details for a remote platform made available to you for use for Part I of the Singularity material. This platform will have the Singularity software pre-installed.*
+*If you're attending a taught version of this course, you will be provided with access details for a remote platform made available to you. This platform will have the Singularity software pre-installed.*
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -106,14 +86,6 @@ singularity version 3.5.3
 ```
 
 Depending on the version of Singularity installed on your system, you may see a different version. At the time of writing, `v3.5.3` is the latest release of Singularity.
-
-## Images and containers
-
-We'll start with a brief note on the terminology used in this section of the course. We refer to both ***images*** and ***containers***. What is the distinction between these two terms?
-
-***Images*** are bundles of files including an operating system, software and potentially data and other application-related files. They may sometimes be referred to as a *disk image* or *container image* and they may be stored in different ways, perhaps as a single file, or as a group of files. Either way, we refer to this file, or collection of files, as an image.
-
-A ***container*** is a virtual environment that is based on an image. That is, the files, applications, tools, etc that are available within a running container are determined by the image that the container is started from. It may be possible to start multiple container instances from an image. You could, perhaps, consider an image to be a form of template from which running container instances can be started.
 
 ## Getting an image and running a Singularity container
 

@@ -21,6 +21,18 @@ exercises: 5
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
+## Work in progress...
+
+This lesson is new material that is under ongoing development.
+As the tools and best practices continue to develop, elements of this material are likely to evolve.
+We welcome any comments or suggestions on how the material can be improved or extended.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
 ## Learning about Docker Containers
 
 The Australian Research Data Commons has produced a short introductory video
@@ -149,7 +161,9 @@ However, Singularity is more complicated to install on Windows and Mac laptops/d
 Therefore, in this workshop, we will introduce both Docker and Singularity.
 We will use Docker to work locally on our own machines, and Singularity to work on the HPC.
 
-### What is the relationship between Singularity, SingularityCE and Apptainer?
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## What is the relationship between Singularity, SingularityCE and Apptainer?
 
 Singularity is open source and was initially developed within the research community.
 The company [Sylabs](https://sylabs.io/) was founded in 2018 to provide commercial support for Singularity.
@@ -162,6 +176,7 @@ At the time of writing, in the context of the material covered in this lesson, A
 If you are working on a platform that now has Apptainer installed, you might find that the only change you need to make when working through this material is to use the the command `apptainer` instead of `singularity`.
 This course will continue to refer to Singularity until differences between the projects warrant choosing one project or the other for the course material.
 
+:::::::::::::::::::::::::::::::::::::::::
 
 ## Container Images
 
