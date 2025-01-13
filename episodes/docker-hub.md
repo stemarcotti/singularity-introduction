@@ -116,7 +116,7 @@ has version 3.6.1 of R and the tidyverse installed?
 
 Note: the container image described in this exercise is large and won't be used
 later in this lesson, so you don't actually need to pull the container image --
-constructing the correct `docker pull` command is sufficient.
+constructing the correct `docker pull` or `singularity pull` command is sufficient.
 
 :::::::::::::::  solution
 
@@ -128,6 +128,12 @@ that means that the name of the container image we want to download is:
 
 ```bash
 $ docker image pull rocker/tidyverse:3.6.1
+```
+
+or to use this image on an HPC system with Singularity installed:
+
+```bash
+$ singularity pull tidyverse-3.6.1.sif docker://rocker/tidyverse:3.6.1
 ```
 
 :::::::::::::::::::::::::
@@ -168,6 +174,7 @@ already seen.
 
 Once you find a container image, use the skills from the previous episode to download
 the container image and explore it.
+You can use either `docker` on your laptop, or `singularity` on the HPC to do this.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -185,5 +192,6 @@ the container image and explore it.
 - Most Docker Hub pages about container images contain sections that provide examples of how to use those container images.
 - Many Docker Hub container images have multiple versions, indicated by tags.
 - The naming convention for Docker container images is: `OWNER/CONTAINER_IMAGE_NAME:TAG`
+- You can pull images from Docker Hub using both Docker and Singularity.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
