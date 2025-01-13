@@ -59,14 +59,20 @@ contact: 'liz.ing-simmons@kcl.ac.uk'
 
 # Order of episodes in your lesson
 episodes: 
+- introduction.md
+- meet-docker.md
+- running-containers.md
+- managing-containers.md
 - 01-singularity-gettingstarted.md
 - 02-singularity-cache.md
 - 03-singularity-shell.md
 - 04-singularity-files.md
 - 05-singularity-docker.md
-- 06-singularity-images-prep.md
-- 07-singularity-images-building.md
+- docker-hub.md
+- creating-container-images.md
+- advanced-containers.md
 - 08-singularity-mpi.md
+- reproduciblity.md
 
 # Information for Learners
 learners: 
