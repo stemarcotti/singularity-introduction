@@ -82,10 +82,10 @@ $ singularity --version
 ```
 
 ```output
-singularity version 3.5.3
+singularity-ce version 4.1.2-jammy
 ```
 
-Depending on the version of Singularity installed on your system, you may see a different version. At the time of writing, `v3.5.3` is the latest release of Singularity.
+Depending on the version of Singularity installed on your system, you may see a different version. At the time of writing, `v4.2.2` is the latest release of Singularity CE and `v1.3.6` is the latest version of Apptainer.
 
 ## Getting an image and running a Singularity container
 
