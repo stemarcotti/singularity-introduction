@@ -21,7 +21,9 @@ exercises: 10
 
 In the previous episode, we ran a few different containers derived from different
 container images: `hello-world`, `alpine`,
-and maybe `ubuntu`. Where did these container images come from?  The Docker Hub!
+and maybe `ubuntu` for Docker containers, and `hello-world.sif` for Singularity. 
+Where did these container images come from?
+Container repositories - namely the [Docker Hub](https://hub.docker.com) and the (archive-only) [Singularity Hub](https://singularityhub.github.io/singularityhub-archive/).
 
 ## Introducing the Docker Hub
 
