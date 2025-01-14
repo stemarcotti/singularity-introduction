@@ -18,7 +18,7 @@ exercises: 10
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-The way in which user accounts and access permissions are handeld in Singularity containers is very different from that in Docker (where you effectively always have superuser/root access). When running a Singularity container, you only have the same permissions to access files as the user you are running as on the host system.
+The way in which user accounts and access permissions are handled in Singularity containers is very different from that in Docker (where you effectively always have superuser/root access). When running a Singularity container, you only have the same permissions to access files as the user you are running as on the host system.
 
 In this episode we'll look at working with files in the context of Singularity containers and how this links with Singularity's approach to users and permissions within containers.
 
@@ -38,7 +38,7 @@ But hang on! I downloaded the standard, public version of the `hello-world.sif` 
 
 If you have any familiarity with Linux system administration, you may be aware that in Linux, users and their Unix groups are configured in the `/etc/passwd` and `/etc/group` files respectively. In order for the shell within the container to know of my user, the relevant user information needs to be available within these files within the container.
 
-Assuming this feature is enabled within the installation of Singularity on your system, when the container is started, Singularity appends the relevant user and group lines from the host system to the `/etc/passwd` and `/etc/group` files within the container [\[1\]](https://www.intel.com/content/dam/www/public/us/en/documents/presentation/hpc-containers-singularity-advanced.pdf).
+Assuming this feature is enabled within the installation of Singularity on your system, when the container is started, Singularity appends the relevant user and group lines from the host system to the `/etc/passwd` and `/etc/group` files within the container [[1](#ref-1)].
 
 This means that the host system can effectively ensure that you cannot access/modify/delete any data you should not be able to on the host system and you cannot run anything that you would not have permission to run on the host system since you are restricted to the same user permissions within the container as you are on the host system.
 
@@ -142,7 +142,7 @@ You can also copy data into a container image at build time if there is some sta
 
 ## References
 
-\[1\] Gregory M. Kurzer, Containers for Science, Reproducibility and Mobility: Singularity P2. Intel HPC Developer Conference, 2017. Available at: [https://www.intel.com/content/dam/www/public/us/en/documents/presentation/hpc-containers-singularity-advanced.pdf](https://www.intel.com/content/dam/www/public/us/en/documents/presentation/hpc-containers-singularity-advanced.pdf)
+[1] Gregory M. Kurzer, Containers for Science, Reproducibility and Mobility: Singularity P2. Intel HPC Developer Conference, 2017. Available at: [https://www.intel.com/content/dam/www/public/us/en/documents/presentation/hpc-containers-singularity-advanced.pdf](https://www.intel.com/content/dam/www/public/us/en/documents/presentation/hpc-containers-singularity-advanced.pdf){#ref-1}
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
