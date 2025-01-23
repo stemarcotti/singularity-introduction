@@ -51,15 +51,6 @@ This Singularity material is intended to be used on a remote platform where Sing
 
 *If you're attending a taught version of this course, you will be provided with access details for a remote platform made available to you. This platform will have the Singularity software pre-installed.*
 
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Installing Singularity on your own laptop/desktop
-
-If you have a Linux system on which you have administrator access and you would like to install Singularity on this system, some information is provided at the start of [Part II of the Singularity material](06-singularity-images-prep.md).
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
 Sign in to the remote platform, with Singularity installed, that you've been provided with access to. Check that the `singularity` command is available in your terminal:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
