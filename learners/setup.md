@@ -16,10 +16,10 @@ Please seek help at the start of the lesson if you have not been able to establi
 
 ## Files to download
 
-Download the [`containers-intro.zip`](files/containers-intro.zip) file.
-*This file can alternatively be downloaded from the `files` directory in the [singularity-introduction GitHub repository](https://github.com/kcl-eresearch/singularity-introduction/blob/gh-pages/files/containers-intro.zip)*.
+Download the [`container-intro.zip`](files/container-intro.zip) file.
+*This file can alternatively be downloaded from the `files` directory in the [singularity-introduction GitHub repository](https://github.com/kcl-eresearch/singularity-introduction/blob/gh-pages/files/container-intro.zip)*.
 
-Move the downloaded file to your Desktop and unzip it. It should unzip to a folder called `docker-intro`.
+Move the downloaded file to your Desktop and unzip it. It should unzip to a folder called `container-intro`.
 
 ## Software to install
 
