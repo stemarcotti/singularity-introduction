@@ -7,7 +7,6 @@ exercises: 30
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain how you can include files within Docker container images when you build them.
-- Explain how you can access files on the Docker host from your Docker containers.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -15,9 +14,6 @@ exercises: 30
 
 - How can I add local files (e.g. data files) into container
   images at build time?
-
-- How can I access files stored on the host system from within a running Docker
-  container?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -75,7 +75,7 @@ Host system:                                                      Singularity co
 
 **Q1:** What do you notice about the ownership of files in a container started from the hello-world image? (e.g. take a look at the ownership of files in the root directory (`/`))
 
-**Exercise 1:** In this container, try editing (for example using the editor `vi` which should be avaiable in the container) the `/rawr.sh` file. What do you notice?
+**Exercise 1:** In this container, try editing (for example using the editor `vi` which should be available in the container) the `/rawr.sh` file. What do you notice?
 
 *If you're not familiar with `vi` there are many quick reference pages online showing the main commands for using the editor, for example [this one](https://web.mit.edu/merolish/Public/vi-ref.pdf).*
 
@@ -91,54 +91,137 @@ Host system:                                                      Singularity co
 
 **A Ex2:** Within your home directory, you *should* be able to successfully create a file. Since you're seeing your home directory on the host system which has been bound into the container, when you exit and the container shuts down, the file that you created within the container should still be present when you look at your home directory on the host system.
 
-
-
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+
 ## Binding additional host system directories to the container
 
-You will sometimes need to bind additional host system directories into a container you are using over and above those bound by default. For example:
+We may sometimes want to work with datasets or scripts stored in shared locations, using the container.
+For example, in the `/datasets/hpc_training/sample-files/arrayjob/` folder contains some toy data files. 
 
-- There may be a shared dataset in a shard location that you need access to in the container
-- You may require executables and software libraries in the container
+Let's say we wanted to analyse these files using a container based on the `hello-world.sif` container image.
 
-The `-B` option to the `singularity` command is used to specify additonal binds. For example, to bind the `/work/z19/shared` directory into a container you could use (note this directory is unlikely to exist on the host system you are using so you'll need to test this using a different directory):
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Running containers
+
+Question: What command would we use to run `ls` from the `hello-world.sif` container?
+
+
+:::::::::::::::  solution
+
+## Solution
+
+We can run `ls` inside a container from the image using:
 
 ```bash
-$ singularity shell -B /work/z19/shared hello-world.sif
-Singularity> ls /work/z19/shared
+$ singularity exec hello-world.sif ls
+```
+:::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::: 
+
+If we try using the container to run `ls` on the shared dataset directory, what happens?
+
+```bash
+$ singularity exec hello-world.sif ls 
 ```
 
 ```output
-CP2K-regtest	    cube	     eleanor		   image256x192.pgm		kevin		    pblas			    q-e-qe-6.7 
-ebe		    evince.simg	     image512x384.pgm	   low_priority.slurm           pblas.tar.gz	                                    q-qe
-Q1529568	    edge192x128.pgm  extrae		   image768x1152.pgm		mkdir		    petsc			    regtest-ls-rtp_forCray
-adrianj		    edge256x192.pgm  gnuplot-5.4.1.tar.gz  image768x768.pgm		moose.job	    petsc-hypre			    udunits-2.2.28.tar.gz
-antlr-2.7.7.tar.gz  edge512x384.pgm  hj			   job-defmpi-cpe-21.03-robust	mrb4cab		    petsc-hypre-cpe21.03	    xios-2.5
-cdo-archer2.sif     edge768x768.pgm  image192x128.pgm	   jsindt			paraver		    petsc-hypre-cpe21.03-gcc10.2.0
+/bin/ls: cannot access /datasets/hpc_training/sample-files/arrayjob/: No such file or directory
 ```
 
-Note that, by default, a bind is mounted at the same path in the container as on the host system. You can also specify where a host directory is mounted in the container by separating the host path from the container path by a colon (`:`) in the option:
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## No such file or directory
+
+Question: What does the error message mean? Why might `ls` inside the container
+not be able to find or open our directory?
+
+This question is here for you to think about - we explore the answer to this
+question in the content below.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+The problem here is that the container and its filesystem is separate from our
+host computer's filesystem. When the container runs, it can't see anything outside
+itself, apart from the files and directories we discussed above, which are bound to the container by default.
+
+In order to access data files (outside the container, on our host computer),
+we need to *bind* that directory to the container, and create a link between the container and our host computer.
+
+We can create a mount between our computer and the running container by using an additional
+option to `singularity run` or `singularity exec`. The option will look like this
+
+`--bind /datasets/hpc_training/sample-files/arrayjob/:/data`
+
+What this means is: make the directory `/datasets/hpc_training/sample-files/arrayjob/` (on the host computer) -- the source --
+*visible* within the container that is about to be started, and inside this container, name the
+directory `/temp` -- the target.
+
+Let's try running the command now:
 
 ```bash
-$ singularity shell -B /work/z19/shared:/shared-data hello-world.sif
-Singularity> ls /shared-data
+$ singularity exec --bind /datasets/hpc_training/sample-files/arrayjob/:/data hello-world.sif ls /datasets/hpc_training/sample-files/arrayjob/
+```
+
+But we get the same error!
+
+```output
+/bin/ls: cannot access /datasets/hpc_training/sample-files/arrayjob/: No such file or directory
+```
+
+This final piece is a bit tricky -- we really have to remember to put ourselves
+inside the container. Where is the data? It's in the directory that's been
+mapped to `/data` -- so we need to include that in the path to `ls`. This
+command should give us what we need:
+
+```bash
+$ singularity exec --bind /datasets/hpc_training/sample-files/arrayjob/:/data hello-world.sif ls /data
+```
+
+Note that if we create any files in the `/data` directory while the container is
+running, these files will appear on our host filesystem in the original directory
+and will stay there even when the container stops.
+
+
+Note that you don't *need* to specify a target mount location in the container.
+By default, a bind is mounted at the same path in the container as on the host system.
+So we could also use this command:
+
+```bash
+$ singularity exec --bind /datasets/hpc_training/sample-files/arrayjob/ hello-world.sif ls /datasets/hpc_training/sample-files/arrayjob/
+```
+
+You can also specify multiple binds to `--bind` by separating them by commas (`,`).
+
+You can also copy data into a container image at build time if there is some static data required in the image. We cover this later in the section on building containers.
+
+:::::::::::::::::::::::::::::::::::::::: challenge
+
+## Exercise - binding directories
+
+Bind the `/datasets/hpc_training/` directory into the `hello-world.sif` container.
+Can you run the "`helloworld.py`"  script found in `/datasets/hpc_training/utils/`?
+
+:::::::::::::::  solution
+
+## Solution
+
+```bash
+$ singularity exec --bind /datasets/hpc_training/ hello-world.sif python3 /datasets/hpc_training/utils/helloworld.py 
 ```
 
 ```output
-CP2K-regtest	    cube	     eleanor		   image256x192.pgm		kevin		    pblas			    q-e-qe-6.7 
-ebe		    evince.simg	     image512x384.pgm	   low_priority.slurm           pblas.tar.gz	                                    q-qe
-Q1529568	    edge192x128.pgm  extrae		   image768x1152.pgm		mkdir		    petsc			    regtest-ls-rtp_forCray
-adrianj		    edge256x192.pgm  gnuplot-5.4.1.tar.gz  image768x768.pgm		moose.job	    petsc-hypre			    udunits-2.2.28.tar.gz
-antlr-2.7.7.tar.gz  edge512x384.pgm  hj			   job-defmpi-cpe-21.03-robust	mrb4cab		    petsc-hypre-cpe21.03	    xios-2.5
-cdo-archer2.sif     edge768x768.pgm  image192x128.pgm	   jsindt			paraver		    petsc-hypre-cpe21.03-gcc10.2.0
+Hello World!
 ```
 
-You can also specify multiple binds to `-B` by separating them by commas (`,`).
+:::::::::::::::::::::::::
 
-You can also copy data into a container image at build time if there is some static data required in the image. We cover this later in the section on building Singularity containers.
+::::::::::::::::::::::::::::::::::::::::
 
 ## References
 
