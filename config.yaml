@@ -11,7 +11,7 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Reproducible computational environments using containers: Introduction to Singularity'
+title: 'Reproducible computational environments using containers: Introduction to Docker and Singularity'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: 
