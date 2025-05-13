@@ -1,0 +1,8 @@
+`quantify_blobs.py` works in a Python environment with the following packages:
+
+* numpy
+* scikit-image
+* pandas
+* matplotlib
+* openpyxl
+* imagecodecs
