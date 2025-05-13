@@ -1,3 +1,6 @@
+# CC-BY-SA-4.0 license
+# please see https://github.com/RMS-DAIM/introduction-to-image-analysis for details
+
 # usage
 # to use this script call from the command line the following: `python quantify_blobs.py path_to_images`
 
